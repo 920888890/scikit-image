@@ -1,6 +1,10 @@
 import os
 import imghdr
+import shutil
 from collections import namedtuple
+from io import BytesIO
+from urlparse import urlparse
+from urllib2 import urlopen
 
 import numpy as np
 from skimage import io
@@ -20,7 +24,8 @@ colors = namedtuple('colors', color_dict.keys())(**color_dict)
 
 def open(path):
     """Return Picture object from the given image path."""
-    return Picture(path)
+
+    return Picture(path=path)
 
 
 def _verify_picture_index(index):
@@ -217,9 +222,16 @@ class Picture(object):
             if not is_url(path):
                 path = os.path.abspath(path)
             self._path = path
-            with file_or_url_context(path) as context:
-                self.array = io.imread(context)
-                self._format = imghdr.what(context)
+
+            # Copy to in-memory buffer to get format (in case path was a url)
+            if urlparse(path).scheme == "":
+                self._format = imghdr.what(path)
+            else:
+                data = BytesIO()
+                shutil.copyfileobj(urlopen(path), data)
+                data.seek(0)
+                self._format = imghdr.what(data)
+                del data
         elif array is not None:
             self.array = array
         elif xy_array is not None:
