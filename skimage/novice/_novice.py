@@ -254,14 +254,9 @@ class Picture(object):
             ValueError(msg)
         elif path is not None:
             self._path = path
-
-            if urlparse(path).scheme == "":
-                self.array = img_as_ubyte(io.imread(path))
-                self._format = imghdr.what(path)
-            else:
-                data = urlopen(path).read()
-                self.array = img_as_ubyte(io.imread(BytesIO(data)))
-                self._format = imghdr.what("", h=data)
+            with file_or_url_context(path) as context:
+                self.array = img_as_ubyte(io.imread(context))
+                self._format = imghdr.what(context)
         elif array is not None:
             self.array = array
         elif xy_array is not None:
