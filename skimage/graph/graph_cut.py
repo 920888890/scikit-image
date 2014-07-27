@@ -61,6 +61,7 @@ def cut_threshold(labels, rag, thresh):
     return map_array[labels]
 
 
+sub_graph_list = []
 def cut_normalized(labels, rag, thresh=0.001, num_cuts=10):
     """Perform Normalized Graph cut on the Region Adjacency Graph.
 
@@ -177,6 +178,7 @@ def _ncut_relabel(rag, thresh, num_cuts, map_array):
             sub1 = rag.subgraph(nodes1)
             sub2 = rag.subgraph(nodes2)
 
+            sub_graph_list.append( (sub1, sub2) )
             # Refer Section 3.2.5
             _ncut_relabel(sub1, thresh, num_cuts, map_array)
             _ncut_relabel(sub2, thresh, num_cuts, map_array)
