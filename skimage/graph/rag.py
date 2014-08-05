@@ -17,9 +17,12 @@ import math
 from .. import draw
 from .. import measure
 from .. import segmentation
-from matplotlib import colors
-from matplotlib import cm
 from .. import util
+try:
+    from matplotlib import colors
+    from matplotlib import cm
+except ImportError:
+    pass
 
 
 
