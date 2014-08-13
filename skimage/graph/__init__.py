@@ -16,14 +16,8 @@ __all__ = ['shortest_path',
            'route_through_array',
            'rag_mean_color',
            'cut_threshold',
-<<<<<<< HEAD
-<<<<<<< HEAD
            'cut_normalized',
            'ncut',
-=======
            'rag_draw',
->>>>>>> Docstrings
-=======
            'draw_rag',
->>>>>>> rebase and change API to support mpl colorspec
            'RAG']
