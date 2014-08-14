@@ -80,7 +80,7 @@ class RAG(nx.Graph):
         """
         src_nbrs = set(self.neighbors(src))
         dst_nbrs = set(self.neighbors(dst))
-        neighbors = (src_nbrs & dst_nbrs) - set([src, dst])
+        neighbors = (src_nbrs | dst_nbrs) - set([src, dst])
 
         for neighbor in neighbors:
             w = weight_func(self, src, dst, neighbor, *extra_arguments,
