@@ -116,7 +116,6 @@ def merge_hierarchical(labels, rag, thresh, in_place=True):
                     heapq.heappush(edge_heap, (wt, y, n, rag[y][n]))
             
             arr = np.arange(labels.max() + 1)
-            print rag.number_of_nodes()
             for ix, (n, d) in enumerate(rag.nodes_iter(data=True)):
                 for label in d['labels']:
                     arr[label] = ix
