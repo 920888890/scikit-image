@@ -25,7 +25,7 @@ def _hmerge_mean_color(graph, src, dst, n):
     diff = np.linalg.norm(diff)
     return diff
 
-
+seg_list = []
 def merge_hierarchical(labels, rag, thresh, in_place=True):
     """Perform hierarchical merging of a RAG.
 
@@ -114,7 +114,14 @@ def merge_hierarchical(labels, rag, thresh, in_place=True):
                     # moved to its proper position
                     wt = rag[y][n]['weight']
                     heapq.heappush(edge_heap, (wt, y, n, rag[y][n]))
-
+            
+            arr = np.arange(labels.max() + 1)
+            print rag.number_of_nodes()
+            for ix, (n, d) in enumerate(rag.nodes_iter(data=True)):
+                for label in d['labels']:
+                    arr[label] = ix
+                    
+            seg_list.append(arr[labels])
     arr = np.arange(labels.max() + 1)
     for ix, (n, d) in enumerate(rag.nodes_iter(data=True)):
         for label in d['labels']:
