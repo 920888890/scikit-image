@@ -259,6 +259,7 @@ def _ncut_relabel(rag, thresh, num_cuts):
         ev = _ncut.normalize(vectors[:, index2])
 
         cut_mask, mcut = get_min_ncut(ev, d, w, num_cuts)
+        mcut = np.inf
         if (mcut < thresh):
             # Sub divide and perform N-cut again
             # Refer Shi & Malik 2001, Section 3.2.5, Page 893
