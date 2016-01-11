@@ -153,7 +153,7 @@ class RAG(nx.Graph):
                                   strides=((0,) * label_image.ndim)),
                 extra_arguments=(self,))
 
-    def merge_nodes(self, src, dst, weight_func=min_weight, in_place=True,
+    def merge_nodes(self, src, dst, attr_func=min_weight, in_place=True,
                     extra_arguments=[], extra_keywords={}):
         """Merge node `src` and `dst`.
 
@@ -202,9 +202,9 @@ class RAG(nx.Graph):
             self.add_node(new)
 
         for neighbor in neighbors:
-            w = weight_func(self, src, new, neighbor, *extra_arguments,
+            data = attr_func(self, src, new, neighbor, *extra_arguments,
                             **extra_keywords)
-            self.add_edge(neighbor, new, weight=w)
+            self.add_edge(neighbor, new, data)
 
         self.node[new]['labels'] = (self.node[src]['labels'] +
                                     self.node[dst]['labels'])
