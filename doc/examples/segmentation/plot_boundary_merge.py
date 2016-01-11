@@ -1,12 +1,4 @@
 """
-===========
-RAG Merging
-===========
-
-This example constructs a Region Adjacency Graph (RAG) and progressively merges
-regions that are similar in color. Merging two adjacent regions produces
-a new region with all the pixels from the merged regions. Regions are merged
-until no highly similar region pairs remain.
 
 """
 
